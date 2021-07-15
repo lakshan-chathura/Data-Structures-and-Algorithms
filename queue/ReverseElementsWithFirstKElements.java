@@ -7,34 +7,33 @@ import java.util.Stack;
 
 
 public class ReverseElementsWithFirstKElements {
-    public static void reverseElements(Queue<Integer> queue,int element){
+    public static void reverseElements(Queue<Integer> queue,int k){
+        //Create a Stack
         Stack<Integer> stack=new Stack<>();
-        if(queue.isEmpty()||element>queue.size()||element<=0){
-            System.exit(-1);
+
+        if(k<0 || k>queue.size()){
+            throw new IllegalArgumentException();
         }
-        for(int i=0;i<element;i++){
+        // Dequeue the first K elements from the queue
+        // and push them onto the stack
+        for(int i=0;i<k;i++){
             stack.push(queue.remove()); 
-            
-            
+              
         }
+        // Enqueue the content of the stack at the
+        // back of the queue
         while(!stack.isEmpty()){
-            queue.add(stack.pop());
-            
-            
+            queue.add(stack.pop()); 
             
         }
-        for(int i=0;i<queue.size()-element;i++){
+        // Add the remaining items in the queue (items
+        // after the first K elements) to the back of the
+        // queue and remove them from the beginning of the queue
+        for(int i=0;i<queue.size()-k;i++){
             queue.add(queue.remove());
             
         }
-       
-
-        for(int i:queue){
-            System.out.print(i+" ");
-                  
-        }
-        System.out.println("");
-        
+         
         
     }
     public static void main(String[] args) {

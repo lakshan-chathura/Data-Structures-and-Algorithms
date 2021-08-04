@@ -23,89 +23,44 @@ public class TwoStacksOneArray {
         top2 = size; 
     } 
   
-    // Method to push an element x to stack1 
-    void push1(int x) 
-    { 
-        if (top1 < top2 - 1) { 
-             arr[++top1] = x; 
-        }else
-        { 
-                throw new IllegalStateException("Stack is Full");
-        } 
-    } 
-  
-    // Method to push an element x to stack2 
-    void push2(int x) 
-    { 
+    public void push1(int element){
+        if(isFull1()){
+            throw new IllegalStateException();
+        }
+        array[++top1]=element;
 
-        if (top1 < top2 - 1) { 
-             
-            arr[--top2] = x; 
-        } 
-        else { 
-            throw new IllegalStateException("Stack is Full");
-        } 
-    } 
-  
-    // Method to pop an element from first stack 
-    int pop1() 
-    { 
-        if (top1 >= 0) { 
-            int x = arr[top1--]; 
-            
-            return x; 
-        } 
-        else { 
-            System.out.println("Stack Underflow"); 
-            System.exit(1); 
-        } 
-        return 0; 
-    } 
-  
-    // Method to pop an element from second stack 
-    int pop2() 
-    { 
-        if (top2 < size) { 
-            int x = arr[top2++]; 
-            return x; 
-        } 
-        else { 
-            System.out.println("Stack Underflow"); 
-            System.exit(1); 
-        } 
-        return 0; 
     }
-    
-    boolean isFull1(){
-        if(top1+1==top2){
-            return true;
-           
-        }else 
-            return false;
+    public int pop1(){
+        if(isEmpty1()){
+            throw new IllegalStateException();
+        }
+        return array[top1--];
     }
-    
-    
-    boolean isFull2(){
-        if(top1+1==top2){
-            return true;
-           
-        }else 
-            return false;
+
+    public boolean isEmpty1(){
+        return top1==-1;
     }
-    
-    boolean isEmpty1(){
-         if (top1 < 0)
-        {
-            return true;
-        }else return false;
+    public boolean isFull1(){
+        return top1+1==top2;
     }
-    
-        
-    boolean isEmpty2(){
-         if (top2 >= size)
-        {
-            return true;
-        }else return false;
+
+    public void push2(int element){
+        if(isFull2()){
+            throw new IllegalStateException();
+        }
+        array[--top2]=element;
+    }
+    public int pop2(){
+        if(isEmpty2()){
+            throw new IllegalStateException();
+        }
+        return array[top2++];
+    }
+    public boolean isEmpty2(){
+        return top2==size;
+    }
+    public boolean isFull2(){
+        return top2-1==top1;
     }
     
     public static void main(String[] args) {

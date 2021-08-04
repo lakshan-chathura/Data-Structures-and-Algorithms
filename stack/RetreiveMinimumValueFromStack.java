@@ -1,57 +1,47 @@
+package Stack;
 
-package stack;
+import java.util.Stack;
 
+public class StackMinValue {
+    private Stack<Integer> stack=new Stack<>();
+    private Stack<Integer> minStack=new Stack<>();
 
-public class RetreiveMinimumValueFromStack {
-  static  class Stack{
-        int top;
-        int array[];
-        int size;
-
-        public Stack(int size) {
-            top=-1;
-            this.size = size;
-            array=new int[this.size];
+    public void push(int element){
+        stack.push(element);
+        if(minStack.isEmpty()){
+            minStack.push(element);
+        }else if(element<minStack.peek()){
+            minStack.push(element);
         }
-        
-        public void push(int element){
-            if(top==size-1){
-                throw new IllegalStateException("Stack is Full");
-            }
-            array[++top]=element;
-            
-        }
-        
-        public int pop(){
-            if(top==-1){
-                throw new IllegalStateException("Stack is empty");
-            }
-            return array[top--];
-        }
-        
-        public int min(){
-            int minValue=array[0];
-            for(int i=0;i<=top;i++){
-                if(minValue>array[i]){
-                    minValue=array[i];
-                }
-            }
-            return minValue;
-        }
-        
-    
-    
     }
-    
+
+    public int pop(){
+        if (stack.isEmpty())
+            throw new IllegalStateException();
+        int topElement=stack.pop();
+        if(minStack.peek()==topElement){
+            minStack.pop();
+        }
+        return topElement;
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+
+    public int min(){
+        return minStack.peek();
+    }
+
     public static void main(String[] args) {
-        Stack a=new Stack(4);
-        a.push(5);
-        a.push(2);
-        a.push(10);
-        a.push(1);
-        a.pop();
-        a.pop();
-        
-        System.out.println("Min Value "+a.min());
+        StackMinValue minStack = new StackMinValue();
+        minStack.push(-2);
+        minStack.push(0);
+        minStack.push(-3);
+        System.out.println(minStack.min()); // return -3
+        minStack.pop();
+        System.out.println(minStack.top());    // return 0
+        System.out.println(minStack.min()); // return -2
     }
 }
